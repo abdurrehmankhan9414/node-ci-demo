@@ -1,0 +1,34 @@
+name: Node.js CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Debug Git Status
+        run: git status || echo "git status failed"
+
+      - name: Debug Git Rev-Parse
+        run: git rev-parse HEAD || echo "git rev-parse failed"
+
+      - name: Debug Git Describe
+        run: git describe || echo "git describe failed"
+
+      - name: Run Tests
+        run: npm test
+
+
